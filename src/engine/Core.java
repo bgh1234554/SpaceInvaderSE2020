@@ -57,6 +57,12 @@ public final class Core {
 	/** Difficulty settings for level 7. */
 	private static final GameSettings SETTINGS_LEVEL_7 =
 			new GameSettings(8, 7, 2, 500);
+	/** Difficulty settings for level 8. (available on normal, hard) **/
+	private static final GameSettings SETTINGS_LEVEL_8 =
+			new GameSettings(8, 8, 2, 500);
+	/** Difficulty settings for level 9. (available on hard) **/
+	private static final GameSettings SETTINGS_LEVEL_9 =
+			new GameSettings(9, 8, 2, 500);
 
 	/** Frame to draw the screen on. */
 	private static Frame frame;
@@ -116,6 +122,8 @@ public final class Core {
 
 		int returnCode = 1;
 		do {
+			/*JComboBox가 달린 메시지  창으로 난이도를 선택하게 할까? index가 0이면 easy, 1이면 normal, 2면 hard* 이런 식으로.../
+			/* if game difficulty is easy,normal,hard then,  */
 			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
