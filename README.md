@@ -1,6 +1,8 @@
 Invaders
 =
-[Space Invaders](http://en.wikipedia.org/wiki/Space_Invaders) clone, written in Java.
+[Space Invaders](http://en.wikipedia.org/wiki/Space_Invaders) clone, written in Java. Software Development Practice class Assignment version.
+
+You have to download the tff file and put it on space_invaders directory to run properly on Java IDE.
 
 ###Screenshots
 ![](http://i.minus.com/ijt8HhaA8laZq.png)
