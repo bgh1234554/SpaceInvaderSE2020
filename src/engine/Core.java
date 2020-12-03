@@ -1,7 +1,11 @@
 package engine;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -14,13 +18,16 @@ import screen.ScoreScreen;
 import screen.Screen;
 import screen.TitleScreen;
 
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
 /**
  * Implements core game logic.
  * 
  * @author <a href="mailto:RobertoIA1987@gmail.com">Roberto Izquierdo Amo</a>
  * 
  */
-public final class Core {
+public final class Core implements ActionListener {
 
 	/** Width of current screen. */
 	private static final int WIDTH = 448;
@@ -77,7 +84,8 @@ public final class Core {
 	private static Handler fileHandler;
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
-
+	/** Easy=0, Normal=1, Hard=2 */
+	private int difficulty = 0;
 
 	/**
 	 * Test implementation.
@@ -117,14 +125,15 @@ public final class Core {
 		gameSettings.add(SETTINGS_LEVEL_5);
 		gameSettings.add(SETTINGS_LEVEL_6);
 		gameSettings.add(SETTINGS_LEVEL_7);
-		
+		gameSettings.add(SETTINGS_LEVEL_8); //only available on difficulties above normal
+		gameSettings.add(SETTINGS_LEVEL_9); //only available on hard difficulty
 		GameState gameState;
 
+		/* calling core method, opening JFrame to select difficulties*/
+		Core core = new Core();
 		int returnCode = 1;
 		do {
-			/*JComboBox가 달린 메시지  창으로 난이도를 선택하게 할까? index가 0이면 easy, 1이면 normal, 2면 hard* 이런 식으로.../
-			/* if game difficulty is easy,normal,hard then,  */
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+			gameState = new GameState(1+core.difficulty, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
 			case 1:
@@ -190,12 +199,44 @@ public final class Core {
 		fileHandler.close();
 		System.exit(0);
 	}
-
 	/**
 	 * Constructor, not called.
 	 */
-	private Core() {
+	JFrame Jframe = new JFrame();
+	JPanel panel = new JPanel();
+	JComboBox<String> check_box = new JComboBox<String>();
+	JButton buyButton = new JButton("선택");
+	private static Font fontRegular;
 
+	private Core() {
+		panel.setLayout(null);
+//Label position setting
+		panel.setFont(fontRegular);
+		panel.setBorder(new TitledBorder("Difficulties"));
+		panel.setBounds(380,80,490,280);
+		panel.setLayout(null);
+
+		check_box.addItem("Easy");
+		check_box.addItem("Normal");
+		check_box.addItem("Hard");
+		check_box.setBounds(60,40,70,30);
+		check_box.addActionListener(check_box);
+
+		buyButton.setBounds(150,40,60,35);
+		buyButton.addActionListener(this);
+
+//adding labels to panel
+		panel.add(check_box);
+		panel.add(buyButton);
+//attach panel in frame
+		Jframe.add(panel);
+//setting frame
+		Jframe.setTitle("Select difficulty");
+		Jframe.setSize(320,130);
+		Jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		Jframe.setVisible(true);
+
+		check_box.addActionListener(check_box);
 	}
 
 	/**
@@ -257,5 +298,13 @@ public final class Core {
 	public static Cooldown getVariableCooldown(final int milliseconds,
 			final int variance) {
 		return new Cooldown(milliseconds, variance);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(e.getSource()==buyButton) {
+			difficulty = check_box.getSelectedIndex();
+			JOptionPane.showMessageDialog(null, "선택한 난이도: "+check_box.getSelectedItem(),"메시지", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 }
