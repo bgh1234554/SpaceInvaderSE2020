@@ -1,5 +1,10 @@
 package engine;
 
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+
 /**
  * Implements an object that stores the state of the game between levels.
  * 
@@ -18,7 +23,6 @@ public class GameState {
 	private int bulletsShot;
 	/** Ships destroyed until now. */
 	private int shipsDestroyed;
-
 	/**
 	 * Constructor.
 	 * 
@@ -49,7 +53,6 @@ public class GameState {
 	public final int getLevel() {
 		return level;
 	}
-
 	/**
 	 * @return the score
 	 */
