@@ -117,7 +117,9 @@ public final class Core implements ActionListener {
 		int width = frame.getWidth();
 		int height = frame.getHeight();
 
+		//여기서 core을 불러와서 difficulty를 세팅해야겠다.
 		gameSettings = new ArrayList<GameSettings>();
+		// switch (difficulty) { 0 (1~7), 1 (2~8), 2(3~9)}
 		gameSettings.add(SETTINGS_LEVEL_1);
 		gameSettings.add(SETTINGS_LEVEL_2);
 		gameSettings.add(SETTINGS_LEVEL_3);
@@ -132,8 +134,8 @@ public final class Core implements ActionListener {
 		/* calling core method, opening JFrame to select difficulties*/
 		Core core = new Core();
 		int returnCode = 1;
-		do {
-			gameState = new GameState(1+core.difficulty, 0, MAX_LIVES, 0, 0);
+		do {//+core.difficulty
+			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
 			case 1:
