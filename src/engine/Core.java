@@ -85,7 +85,7 @@ public final class Core implements ActionListener {
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
 	/** Easy=0, Normal=1, Hard=2 */
-	private int difficulty = 0;
+	private static int difficulty = 0;
 
 	/**
 	 * Test implementation.
@@ -135,8 +135,18 @@ public final class Core implements ActionListener {
 		Core core = new Core();
 		int returnCode = 1;
 		do {
-			gameState = new GameState(1+core.difficulty, 0, MAX_LIVES, 0, 0);
-
+			gameState = new GameState(1+difficulty, 0, MAX_LIVES, 0, 0);
+			switch(difficulty){
+				case 1:
+					LOGGER.info("Chosen Difficulty: NORMAL");
+					break;
+				case 2:
+					LOGGER.info("Chosen Difficulty: HARD");
+					break;
+				default:
+					LOGGER.info("Chosen Difficulty: EASY");
+					break;
+			}
 			switch (returnCode) {
 			case 1:
 				// Main menu.
