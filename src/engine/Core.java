@@ -134,8 +134,8 @@ public final class Core implements ActionListener {
 		/* calling core method, opening JFrame to select difficulties*/
 		Core core = new Core();
 		int returnCode = 1;
-		do {//+core.difficulty
-			gameState = new GameState(1, 0, MAX_LIVES, 0, 0);
+		do {
+			gameState = new GameState(1+core.difficulty, 0, MAX_LIVES, 0, 0);
 
 			switch (returnCode) {
 			case 1:
