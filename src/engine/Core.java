@@ -85,7 +85,7 @@ public final class Core implements ActionListener {
 	/** Logger handler for printing to console. */
 	private static ConsoleHandler consoleHandler;
 	/** Easy=0, Normal=1, Hard=2 */
-	private static int difficulty = 0;
+	public static int difficulty = 0;
 
 	/**
 	 * Test implementation.
