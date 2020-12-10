@@ -138,7 +138,7 @@ public final class Core implements ActionListener {
 			gameState = new GameState(1+difficulty, 0, MAX_LIVES, 0, 0);
 			switch(difficulty){
 				case 1:
-					LOGGER.info("Chosen Difficulty: NORMAL");
+					LOGGER.info("Chosen Difficulty: MEDIUM");
 					break;
 				case 2:
 					LOGGER.info("Chosen Difficulty: HARD");
@@ -229,7 +229,7 @@ public final class Core implements ActionListener {
 		panel.setLayout(null);
 
 		check_box.addItem("Easy");
-		check_box.addItem("Normal");
+		check_box.addItem("Medium");
 		check_box.addItem("Hard");
 		check_box.setBounds(60,40,70,30);
 		check_box.addActionListener(check_box);

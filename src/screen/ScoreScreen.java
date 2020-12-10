@@ -78,7 +78,6 @@ public class ScoreScreen extends Screen {
 					|| highScores.get(highScores.size() - 1).getScore()
 					< this.score)
 				this.isNewRecord = true;
-
 		} catch (IOException e) {
 			logger.warning("Couldn't load high scores!");
 		}
@@ -155,7 +154,6 @@ public class ScoreScreen extends Screen {
 		Collections.sort(highScores);
 		if (highScores.size() > MAX_HIGH_SCORE_NUM)
 			highScores.remove(highScores.size() - 1);
-
 		try {
 			Core.getFileManager().saveHighScores(highScores);
 		} catch (IOException e) {
