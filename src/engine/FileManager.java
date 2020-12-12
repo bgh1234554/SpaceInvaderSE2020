@@ -240,22 +240,17 @@ public final class FileManager {
 			String jarPath = FileManager.class.getProtectionDomain()
 					.getCodeSource().getLocation().getPath();
 			jarPath = URLDecoder.decode(jarPath, "UTF-8");
-			System.out.println("Done1");
 			String scoresPath = new File(jarPath).getParent();
 			scoresPath += File.separator;
 			scoresPath += "invaders-master/space_invaders/scores";
-			System.out.println("Done2");
 			File scoresFile = new File(scoresPath);
-			System.out.println("Done2.5");
 			if (scoresFile.exists()==false){
 				System.out.println(scoresPath);
 				scoresFile.createNewFile();
 			}
-			System.out.println("Done3");
 			outputStream = new FileOutputStream(scoresFile);
 			bufferedWriter = new BufferedWriter(new OutputStreamWriter(
 					outputStream, Charset.forName("UTF-8")));
-			System.out.println("Done4");
 			logger.info("Saving user high scores.");
 
 			// Saves 7 or less scores.
