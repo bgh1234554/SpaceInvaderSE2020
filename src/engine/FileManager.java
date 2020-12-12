@@ -23,6 +23,8 @@ import java.util.logging.Logger;
 
 import engine.DrawManager.SpriteType;
 
+import static engine.Core.difficulty;
+
 /**
  * Manages files used in the application.
  * 
@@ -36,7 +38,7 @@ public final class FileManager {
 	/** Application logger. */
 	private static Logger logger;
 	/** Max number of high scores. */
-	private static final int MAX_SCORES = 7;
+	private static final int MAX_SCORES = 21;
 
 	/**
 	 * private constructor.
@@ -149,12 +151,14 @@ public final class FileManager {
 			Score highScore = null;
 			String name = reader.readLine();
 			String score = reader.readLine();
+			String diff = reader.readLine();
 
-			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
+			while ((name != null) && (score != null) && (diff !=null)) {
+				highScore = new Score(name, Integer.parseInt(score), Integer.parseInt(diff));
 				highScores.add(highScore);
 				name = reader.readLine();
 				score = reader.readLine();
+				diff = reader.readLine();
 			}
 		} finally {
 			if (inputStream != null)
@@ -185,7 +189,7 @@ public final class FileManager {
 
 			String scoresPath = new File(jarPath).getParent();
 			scoresPath += File.separator;
-			scoresPath += "space_invaders/scores";
+			scoresPath += "invaders-master/space_invaders/scores";
 
 			File scoresFile = new File(scoresPath);
 			inputStream = new FileInputStream(scoresFile);
@@ -197,12 +201,14 @@ public final class FileManager {
 			Score highScore = null;
 			String name = bufferedReader.readLine();
 			String score = bufferedReader.readLine();
+			String diff = bufferedReader.readLine();
 
 			while ((name != null) && (score != null)) {
-				highScore = new Score(name, Integer.parseInt(score));
+				highScore = new Score(name, Integer.parseInt(score), Integer.parseInt(diff));
 				highScores.add(highScore);
 				name = bufferedReader.readLine();
 				score = bufferedReader.readLine();
+				diff = bufferedReader.readLine();
 			}
 
 		} catch (FileNotFoundException e) {
@@ -226,8 +232,7 @@ public final class FileManager {
 	 * @throws IOException
 	 *             In case of loading problems.
 	 */
-	public void saveHighScores(final List<Score> highScores) 
-			throws IOException {
+	public void saveHighScores(final List<Score> highScores) throws IOException {
 		OutputStream outputStream = null;
 		BufferedWriter bufferedWriter = null;
 
@@ -235,20 +240,22 @@ public final class FileManager {
 			String jarPath = FileManager.class.getProtectionDomain()
 					.getCodeSource().getLocation().getPath();
 			jarPath = URLDecoder.decode(jarPath, "UTF-8");
-
+			System.out.println("Done1");
 			String scoresPath = new File(jarPath).getParent();
 			scoresPath += File.separator;
-			scoresPath += "space_invaders/scores";
-
+			scoresPath += "invaders-master/space_invaders/scores";
+			System.out.println("Done2");
 			File scoresFile = new File(scoresPath);
-
-			if (!scoresFile.exists())
+			System.out.println("Done2.5");
+			if (scoresFile.exists()==false){
+				System.out.println(scoresPath);
 				scoresFile.createNewFile();
-
+			}
+			System.out.println("Done3");
 			outputStream = new FileOutputStream(scoresFile);
 			bufferedWriter = new BufferedWriter(new OutputStreamWriter(
 					outputStream, Charset.forName("UTF-8")));
-
+			System.out.println("Done4");
 			logger.info("Saving user high scores.");
 
 			// Saves 7 or less scores.
@@ -259,6 +266,8 @@ public final class FileManager {
 				bufferedWriter.write(score.getName());
 				bufferedWriter.newLine();
 				bufferedWriter.write(Integer.toString(score.getScore()));
+				bufferedWriter.newLine();
+				bufferedWriter.write(Integer.toString(score.getDifficulty()));
 				bufferedWriter.newLine();
 				savedCount++;
 			}

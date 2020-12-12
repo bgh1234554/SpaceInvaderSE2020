@@ -35,7 +35,9 @@ public class HighScoreScreen extends Screen {
 
 		try {
 			this.highScores = Core.getFileManager().loadHighScores();
-		} catch (NumberFormatException | IOException e) {
+		} catch (NumberFormatException e){
+			logger.warning("Number Format Exception!");
+		} catch (IOException e) {
 			logger.warning("Couldn't load high scores!");
 		}
 	}
